@@ -30,7 +30,7 @@ app.get("/", async (req, res) => {
   
   app.get("/:id", async(req,res)=>{
     try {
-      const book = await Book.findById(req.params.id).lean().exec();
+      const book = await Book.findById(req.params.id).populate("authorId").populate("sectionId").lean().exec();
       return res.status(200).send(book);
     } catch (error) {
       return res.status(500).send({message:err.message});
