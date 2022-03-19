@@ -79,8 +79,7 @@ async (req, res) => {
 );
 
 
-router.get("/",
-async (req, res) => {
+router.get("/", async (req, res) => {
     try {
       const user = await User.find(req.body);
       return res.status(201).send(user);
