@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const gallerySchema = new mongoose.Schema(
   {
-    user_id: { type: String, required: true },
-    // profilePic: [{ type: String, required: false }],
+    user_id: { type: mongoose.Schema.Types.ObjectId,ref:"user", required: true },
+    userPic: [{ type: String, required: true }],
   },
   {
     versionKey: false,
