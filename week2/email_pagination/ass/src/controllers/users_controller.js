@@ -7,15 +7,6 @@ const User = require("../models/users_model");
 
 const router = express.Router();
 
-router.get("/",async(req,res)=>{
-    try {
-        const user = await User.find({}).lean().exec();
-        return res.status(200).send(user);
-    } catch (err) {
-        return res.status(500).send({mesaage:err.mesaage});
-    }
-})
-
 
 // pagination-------------------------
 
@@ -27,7 +18,7 @@ router.get("/", async (req, res) => {
 
       const users = await User.find().skip(skip).limit(pagesize).lean().exec() ;
   
-      const totalPages = Math.ceil((await User.find().countDocuments()));
+      const totalPages = Math.ceil((await User.find().countDocuments())/skip);
   
       return res.status(200).send({ users, totalPages });
 
@@ -46,6 +37,13 @@ router.get("/", async (req, res) => {
         to: user.email,
         subject: "Welcome to ABC system " + user.first_name+" "+user.last_name,
         text: "Hii "+user.first_name+" Please confirm your email address",
+      });
+
+      transporter.sendMail({
+        to: ["admin1@a.com","admin2@b.com","admin3@c.com","admin4@d.com","admin1zzzzzz@a.com"],
+        from: '"Amazon admin" <admin@amazon.com>',
+        subject: user.first_name+" "+user.last_name+" "+"has registered with us",
+        text: "Please welcome"+" "+user.first_name+" "+user.last_name,
       });
   
       return res.status(201).send({ message: "user register successfully" });
