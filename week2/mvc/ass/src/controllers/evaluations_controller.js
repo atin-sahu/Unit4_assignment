@@ -12,4 +12,13 @@ router.post("/", async(req,res)=>{
     }
 })
 
+router.get("/", async(req,res)=>{
+    try {
+        const evaluations = await Evaluation.find().lean().exec();
+        return res.status(200).send(evaluations);
+    } catch (err) {
+        return res.status(500).send({message: err.message});
+    }
+})
+
 module.exports = router;

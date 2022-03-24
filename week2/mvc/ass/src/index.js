@@ -20,7 +20,7 @@ app.use("/evaluations",evaluationController);
 app.use("/submisions",submisionController);
 
 
-app.listen("5555", async()=>{
+app.listen(5555, async()=>{
     try {
         await connect();
         console.log("listening on port 5555");

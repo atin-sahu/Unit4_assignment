@@ -12,4 +12,12 @@ router.post("/", async(req,res)=>{
     }
 })
 
+router.get("/", async(req,res)=>{
+    try {
+        const batchs = await Batch.find().lean().exec();
+        return res.status(200).send(batchs);
+    } catch (err) {
+        return res.status(500).send({message: err.message});
+    }
+})
 module.exports = router;

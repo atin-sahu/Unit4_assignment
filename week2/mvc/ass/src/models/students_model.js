@@ -4,7 +4,7 @@ const studentSchema = new mongoose.Schema(
     {
       roll_number: { type: Number, required: true },
       batch_id: { type:mongoose.Schema.Types.ObjectId,ref:"batch", required: true },   
-    //   branchId:{type:mongoose.Schema.Types.ObjectId,ref:"branch",required:true},  
+      user_id:{type:mongoose.Schema.Types.ObjectId,ref:"user",required:true},  
     },
     {
       versionKey: false,
