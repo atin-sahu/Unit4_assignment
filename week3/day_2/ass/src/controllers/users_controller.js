@@ -28,22 +28,22 @@ router.post("/", upload.single("profilePic"), async (req, res) => {
   }
 });
 
-router.post("/multiple", upload.any("profilePic"), async (req, res) => {
-  try {
-    const filePaths = req.files.map((file) => {
-      return file.path;
-    });
+// router.post("/multiple", upload.any("profilePic"), async (req, res) => {
+//   try {
+//     const filePaths = req.files.map((file) => {
+//       return file.path;
+//     });
 
-    const user = await User.create({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      profilePic: filePaths,
-    });
+//     const user = await User.create({
+//       first_name: req.body.first_name,
+//       last_name: req.body.last_name,
+//       profilePic: filePaths,
+//     });
 
-    return res.status(200).send(user);
-  } catch (err) {
-    return res.status(500).send({ message: err.message });
-  }
-});
+//     return res.status(200).send(user);
+//   } catch (err) {
+//     return res.status(500).send({ message: err.message });
+//   }
+// });
 
 module.exports = router;

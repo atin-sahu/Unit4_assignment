@@ -1,8 +1,10 @@
 const express = require("express");
 
 const Gallery = require("../models/gallery_model");
+const upload = require("../middleware/upload");
 
 const router = express.Router();
+
 
 router.get("/", async(req,res)=>{
     try {
@@ -13,13 +15,21 @@ router.get("/", async(req,res)=>{
     }
 })
 
-router.post("/", async(req,res)=>{
+router.post("/multiple", upload.any("userPic"), async (req, res) => {
     try {
-        const gallery = await Gallery.create(req.body);
-        return res.status(200).send(gallery);
+      const filePaths = req.files.map((file) => {
+        return file.path;
+      });
+  
+      const gallery = await Gallery.create({
+        userPic: filePaths,
+      });
+  
+      return res.status(200).send(gallery);
     } catch (err) {
-        return res.status(500).send({message:err.message});
+      return res.status(500).send({ message: err.message });
     }
-})
-
-module.exports = router;
+  });
+  
+  module.exports = router;
+  
